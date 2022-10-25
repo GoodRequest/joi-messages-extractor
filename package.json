@@ -1,9 +1,9 @@
 {
   "name": "joi-messages-extractor",
   "version": "1.0.0",
-  "bin": "ts-node/register index.ts",
+  "bin": "./lib/index.js",
   "scripts": {
-    "demo": "node --inspect -r dotenv/config -r ts-node/register demo/index.ts",
+    "demo": "node --inspect -r dotenv/config -r ts-node/register demo/src/index.ts",
     "lib": "tsc --project tsconfig.lib.json"
   },
   "dependencies": {
