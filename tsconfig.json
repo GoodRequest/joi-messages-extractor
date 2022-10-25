@@ -5,7 +5,9 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "commonjs",
+    "declaration": true,
     "esModuleInterop": true,
+    "outDir": "./",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
