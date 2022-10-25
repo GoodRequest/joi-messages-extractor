@@ -2,16 +2,22 @@
   "name": "joi-messages-extractor",
   "version": "1.0.0",
   "bin": "./lib/index.js",
+  "scripts": {
+    "demo": "node -r ts-node/register demo/index.ts",
+    "lib": "tsc"
+  },
   "dependencies": {
-    "@types/config": "^3.3.0",
-    "@types/joi": "^17.2.3",
-    "@types/node": "^18.11.5",
     "colors": "^1.4.0",
     "config": "^3.3.8",
+    "express": "^4.18.2",
     "joi": "^17.6.4",
-    "ts-node": "10.9.1"
+    "ts-node": "10.9.1",
+    "typescript": "^4.8.4"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "@types/config": "^3.3.0",
+    "@types/express": "4.17.13",
+    "@types/joi": "^17.2.3",
+    "@types/node": "^18.11.5"
   }
 }
