@@ -1,0 +1,14 @@
+{
+  "name": "joi-messages-extractor",
+  "version": "1.0.0",
+  "bin": "./index.js",
+  "dependencies": {
+    "@types/node": "^18.11.5",
+    "@types/config": "^3.3.0",
+    "@types/joi": "^17.2.3",
+    "config": "^3.3.8",
+    "colors": "^1.4.0",
+    "joi": "^17.6.4",
+    "ts-node": "10.9.1"
+  }
+}
