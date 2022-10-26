@@ -17,7 +17,7 @@
   },
   "include": [
     "./demo/src/**/*",
-    "./config/*"
+    "./demo/locales/*"
   ],
   "exclude": [
     "node_modules"
