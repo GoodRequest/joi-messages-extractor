@@ -1,5 +1,5 @@
 {
-  "name": "joi-messages-extractor",
+  "name": "@goodrequest/joi-messages-extractor",
   "version": "1.0.0",
   "bin": "./lib/index.js",
   "scripts": {
