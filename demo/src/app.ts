@@ -1,12 +1,24 @@
 import express from 'express'
-import config from 'config'
-import i18next, { InitOptions } from 'i18next'
+import i18next from 'i18next'
 import i18nextMiddleware from 'i18next-http-middleware'
 import i18nextBackend from 'i18next-fs-backend'
 import router from './api'
 import errorMiddleware from './middlewares/errorMiddleware'
 
-const i18NextConfig: InitOptions = config.get('i18next')
+const i18NextConfig = {
+    preload: ['sk'],
+    fallbackLng: ['en', 'sk'],
+    ns: ['translation', 'error', 'success', 'email', 'joi'],
+    defaultNS: 'translation',
+    detection: {
+        order: ['customDetector']
+    },
+    backend: {
+        loadPath: 'locales/{{lng}}/{{ns}}.json',
+        jsonIndent: 2
+    },
+    whitelist: ['sk']
+}
 
 const languageDetector = new i18nextMiddleware.LanguageDetector()
 languageDetector.addDetector({
@@ -37,4 +49,5 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api', router())
 app.use(errorMiddleware)
 
+export { i18NextConfig }
 export default app

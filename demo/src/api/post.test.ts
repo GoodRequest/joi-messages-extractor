@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import { Request, Response } from 'express'
-import {MESSAGE_TYPE} from "../utils/enums";
 
 export const requestSchema = Joi.object().keys({
     body: Joi.object().keys({
@@ -36,6 +35,6 @@ export const responseSchema = Joi.object({})
 
 export const workflow = async (req: Request, res: Response) => {
     return res.json({
-        type: MESSAGE_TYPE.SUCCESS
+        type: 'SUCCESS'
     })
 }

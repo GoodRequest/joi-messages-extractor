@@ -2,11 +2,9 @@ import { Request, NextFunction, Response } from 'express'
 import { isEmpty } from 'lodash'
 import Debug from 'debug'
 import multer from 'multer'
-import { globalLogger } from '../utils/logger'
 
 // utils
 import ErrorBuilder from '../utils/ErrorBuilder'
-import { MESSAGE_TYPE } from '../utils/enums'
 
 const debug = Debug('benzinol:middlewares:error')
 
@@ -29,17 +27,16 @@ export default (err: ErrorBuilder, req: Request, res: Response, _next: NextFunct
 		messages = [
 			{
 				message: 'uploadFailed',
-				type: MESSAGE_TYPE.ERROR
+				type: 'ERROR'
 			}
 		]
 	} else {
 		// DEBUG=boilerplate:middlewares:error alebo DEBUG = boilerplate:middlewares:*
 		debug(err)
-		globalLogger.error(err)
 		messages = [
 			{
 				message: 'somethingWentWrong',
-				type: MESSAGE_TYPE.ERROR
+				type: 'ERROR'
 			}
 		]
 	}

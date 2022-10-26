@@ -1,9 +1,6 @@
 import Joi from 'joi'
 import { map } from 'lodash'
 
-// utils
-import { MESSAGE_TYPE } from './enums'
-
 interface IErrorBuilderItem {
 	message: string
 	type: string
@@ -14,7 +11,7 @@ const prepareErrorItems = (name: string | Joi.ValidationErrorItem[], duplicateKe
 	if (typeof name === 'string') {
 		return [
 			{
-				type: MESSAGE_TYPE.ERROR,
+				type: 'ERROR',
 				message: name,
 				duplicateKeys: duplicateKeys?.length ? duplicateKeys : undefined
 			}
@@ -22,7 +19,7 @@ const prepareErrorItems = (name: string | Joi.ValidationErrorItem[], duplicateKe
 	}
 
 	return map(name, (item: Joi.ValidationErrorItem) => ({
-		type: MESSAGE_TYPE.ERROR,
+		type: 'ERROR',
 		path: item.path.join('.'),
 		message: item.message,
 		duplicateKeys: duplicateKeys?.length ? duplicateKeys : undefined
