@@ -6,38 +6,17 @@ import Joi from 'joi'
 import path from 'path'
 import config from 'config'
 
-// import Test from 'joi/lib/types'
-/*
- * Older available versions were not found
- *
- * To run the script use tho following command: cross-env JOI_ERRORS_FILE_PATH=<path_name> ts-node 'joiErrorMessagesScript.ts'
- * JOI_LOCALES_FILE_PATH
- * 		- is optional
- * 		- default value is the same folder with script
- * 		- path to te directory where joiErrorMessages.ts file will be situated
- * joiErrorMessages.ts - is a default filename where all Joi error message keys with default translations are located and exported
- * Translating languages is trying to find in i18next.fallbackLng from config module otherwise will be used the default ones - english, ['en', 'sk']
- *
- * Tested versions
- * 17.6.3 +
- * 17.6.0 +
- * 17.5.0 +
- * 17.4.0 +
- * 17.3.0 +
- * 17.2.0 +
- * 17.1.1 - Error looks like: Could not find a declaration file for module 'joi'
- * */
-
 // Joi version check
-const testedVersions = ['17.6', '17.5', '17.4', '17.3', '17.2']
-if (testedVersions.indexOf(Joi.version.substring(0, 4)) === -1) {
+const testedVersions = ['17.6.4', '17.6.3', '17.6.0', '17.5.0', '17.4.0', '17.3.0', '17.2.0']
+if (testedVersions.indexOf(Joi.version) === -1) {
 	console.log(`WARNING: This script was not tested on your joi version, errors may occur`.yellow)
 }
 
 // Creating all necessary global variables
-const files = fs.readdirSync(path.resolve(process.cwd(), 'node_modules', 'joi', 'lib', 'types'), { withFileTypes: false })
-const fileName = 'joiErrorMessages.ts'
-const savePath = process.env.JOI_ERRORS_FILE_PATH ? path.resolve(process.cwd(), process.env.JOI_ERRORS_FILE_PATH, fileName) : path.resolve(__dirname, fileName)
+const files: Buffer[] | string[] = fs.readdirSync(path.resolve(process.cwd(), 'node_modules', 'joi', 'lib', 'types'), { withFileTypes: false })
+const fileName: string = 'joiErrorMessages.ts'
+const savePath: string = process.env.JOI_MESSAGES_FILE_PATH ? path.resolve(process.cwd(), process.env.JOI_MESSAGES_FILE_PATH, fileName) : path.resolve(__dirname, fileName)
+const checkOnly: boolean = process.env.JOI_CHECK_ONLY ? process.env.JOI_CHECK_ONLY === 'true' : false
 
 // Generate template for languages, otherwise use default
 let i18NextConfig: any = {}
@@ -50,8 +29,7 @@ try {
 const languages: string[] = i18NextConfig?.fallbackLng || ['en', 'sk']
 
 if (languages.length < 1) {
-	console.log(`ERROR: 'i18next.fallbackLng' was not found in module 'config'.\nERROR: Please try to define some`.red)
-	process.exit(1)
+	console.log(`WARNING: 'i18next.fallbackLng' was not found in module 'config'.\nWARNING: Please try to define some, otherwise will be used default: en, sk`.yellow)
 }
 
 const init = async () => {
@@ -94,17 +72,25 @@ const init = async () => {
 		result[lang] = tempLang
 	})
 
-	// Write all joi messages into a file
-	let template = ''
-	languages.forEach((lang) => {
-		template += `\n\t${lang}: {\n${Object.values(result[lang]).join(',\n')}\n\t},`
-	})
-	// Remove last coma
-	template = template.substring(0, template.length - 1)
-	fs.writeFileSync(savePath, `const joiErrorMessages: any = {${template}\n}\n\nexport default joiErrorMessages\n`)
-	console.log(
-		`SUCCESS: ${newErrorMessagesCount} new Joi error messages were generated for the next languages: ${languages}\nMessages file path: ${savePath}: `.green
-	)
+	// If true then send error if some messages are not generated
+	if (checkOnly) {
+		if (newErrorMessagesCount > 0) {
+			console.log(`ERROR: ${newErrorMessagesCount} Joi error messages are missing in: ${savePath}\nRun this script to generate them`.red)
+			process.exit(1)
+		}
+	} else {
+		// Write all joi messages into a file
+		let template = ''
+		languages.forEach((lang) => {
+			template += `\n\t${lang}: {\n${Object.values(result[lang]).join(',\n')}\n\t},`
+		})
+		// Remove last coma
+		template = template.substring(0, template.length - 1)
+		fs.writeFileSync(savePath, `const joiErrorMessages: any = {${template}\n}\n\nexport default joiErrorMessages\n`)
+		console.log(
+			`SUCCESS: ${newErrorMessagesCount} new Joi error messages were generated for the next languages: ${languages}\nMessages file path: ${savePath}: `.green
+		)
+	}
 }
 
 init()
