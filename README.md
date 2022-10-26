@@ -58,7 +58,7 @@ It contains keys *.en* and *.sk* which describe translation language. Script is 
 
 Each key contains type of Joi error message, and it's translation. By default all messages are in English and must be translated manually.
 
-## Usage joiErrorMessages.ts in code
+## Usage of joiErrorMessages.ts in code
 
 To use custom error messages is enough to pass *joiErrorMessages* object to Joi validation methode:
 
