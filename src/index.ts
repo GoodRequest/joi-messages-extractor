@@ -75,7 +75,7 @@ const init = async () => {
 	// If true then send error if some messages are not generated
 	if (checkOnly) {
 		if (newErrorMessagesCount > 0) {
-			console.log(`ERROR: ${newErrorMessagesCount} Joi error messages are missing in: ${savePath}\nRun this script to generate them: cross-env JOI_MESSAGES_FILE_PATH="outfileLocationDir" npx GoodRequest/joi-messages-extractor`.red)
+			console.log(`ERROR: ${newErrorMessagesCount} Joi error messages are missing in: ${savePath}\nRun this script to generate them: cross-env JOI_MESSAGES_FILE_PATH=${savePath} npx GoodRequest/joi-messages-extractor`.red)
 			process.exit(1)
 		} else {
 			console.log(`SUCCESS: All Joi error messages are generated for the next languages: ${languages}\nMessages file path: ${savePath}: `.green)
