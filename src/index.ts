@@ -26,10 +26,10 @@ try {
 } catch {
 	console.log(`WARNING: i18next is missing in config module`.yellow)
 }
-const languages: string[] = i18NextConfig?.fallbackLng || ['en', 'sk']
+const languages: string[] = i18NextConfig?.preload || ['en', 'sk']
 
 if (languages.length < 1) {
-	console.log(`WARNING: 'i18next.fallbackLng' was not found in module 'config'.\nWARNING: Please try to define some, otherwise will be used default: en, sk`.yellow)
+	console.log(`WARNING: 'i18next.preload' was not found in module 'config'.\nWARNING: Please try to define some, otherwise will be used default: en, sk`.yellow)
 }
 
 const init = async () => {

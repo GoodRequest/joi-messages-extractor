@@ -6,7 +6,7 @@ import router from './api'
 import errorMiddleware from './middlewares/errorMiddleware'
 
 const i18NextConfig = {
-    preload: ['sk'],
+    preload: ['en', 'sk'],
     fallbackLng: ['en', 'sk'],
     ns: ['translation', 'error', 'success', 'email', 'joi'],
     defaultNS: 'translation',
