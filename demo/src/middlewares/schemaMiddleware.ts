@@ -6,7 +6,7 @@ import joiErrorMessages from "./../../locales/joiErrorMessages";
 
 // In common projects is exported like const i18NextConfig: any = config.get('i18next')
 const i18NextConfig = {
-	fallbackLng: ['en', 'sk']
+	preload: ['en', 'sk']
 }
 
 // It's necessary to check if joiErrorMessages were found
@@ -15,7 +15,7 @@ if (!joiErrorMessages) {
 	console.log('WARNING: joiErrorMessages not found.\nTry to check weather you are importing correct file and he was generated'.yellow)
 } else {
 	Object.keys(joiErrorMessages).forEach((lang) => {
-		if (!i18NextConfig.fallbackLng.includes(lang)) {
+		if (!i18NextConfig.preload.includes(lang)) {
 			console.log(
 				`WARNING: Missing language key: ${lang} in joiErrorMessages.ts\nRunning script for Joi error messages generating may fix this problem`.yellow
 			)
