@@ -1,6 +1,6 @@
 {
-  "name": "joi-messages-extractor",
-  "version": "1.0.0",
+  "name": "@goodrequest/joi-messages-extractor",
+  "version": "1.0.1",
   "bin": "./lib/index.js",
   "scripts": {
     "demo": "node -r ts-node/register demo/src/index.ts",
