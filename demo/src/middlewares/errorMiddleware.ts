@@ -1,12 +1,9 @@
 import { Request, NextFunction, Response } from 'express'
 import { isEmpty } from 'lodash'
-import Debug from 'debug'
-import multer from 'multer'
 
 // utils
 import ErrorBuilder from '../utils/ErrorBuilder'
 
-const debug = Debug('benzinol:middlewares:error')
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default (err: ErrorBuilder, req: Request, res: Response, _next: NextFunction) => {
@@ -22,17 +19,7 @@ export default (err: ErrorBuilder, req: Request, res: Response, _next: NextFunct
 		} else {
 			messages = [err.message]
 		}
-	} else if (err instanceof multer.MulterError) {
-		// A Multer error occurred when uploading.
-		messages = [
-			{
-				message: 'uploadFailed',
-				type: 'ERROR'
-			}
-		]
 	} else {
-		// DEBUG=boilerplate:middlewares:error alebo DEBUG = boilerplate:middlewares:*
-		debug(err)
 		messages = [
 			{
 				message: 'somethingWentWrong',
