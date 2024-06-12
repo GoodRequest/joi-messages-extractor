@@ -17,7 +17,8 @@
   },
   "include": [
     "./demo/src/**/*",
-    "./demo/locales/*"
+    "./demo/locales/*",
+    "./src/*"
   ],
   "exclude": [
     "node_modules"
